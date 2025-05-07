@@ -1,24 +1,22 @@
-//
-//  ContentView.swift
-//  WatchAlarm
-//
-//  Created by Christian Lazo on 5/7/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var pin: String = ""
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+        NavigationView {
+            Form {
+                Section(header: Text("Enter Alarm PIN")) {
+                    TextField("4-digit PIN", text: $pin)
+                        .keyboardType(.numberPad)
+                }
 
-#Preview {
-    ContentView()
+                Button("Send PIN to Watch") {
+                    ConnectivityManager.shared.sendPINToWatch(pin: pin)
+                }
+                .disabled(pin.count != 4)
+            }
+            .navigationTitle("Alarm Settings")
+        }
+    }
 }
