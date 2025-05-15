@@ -3,38 +3,47 @@ import SwiftUI
 struct ContentView: View {
     @State private var pin: String = ""
     @State private var alarmTime: Date = Date().addingTimeInterval(60) // default: 1 min ahead
+    @StateObject private var appState = AppState.shared
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Set Alarm Time")) {
-                    DatePicker("Alarm Time", selection: $alarmTime, displayedComponents: .hourAndMinute)
-                }
-
-                Section(header: Text("Enter PIN")) {
-                    TextField("PIN", text: $pin)
-                        .keyboardType(.numberPad)
-                }
-
-                Button("Schedule Alarm") {
-                    scheduleAlarm()
-                }
-                .disabled(pin.count != 4)
+    NavigationStack {
+        Form {
+            Section(header: Text("Set Alarm Time")) {
+                DatePicker("Alarm Time", selection: $alarmTime, displayedComponents: .hourAndMinute)
             }
-            .navigationTitle("Alarm Settings")
+
+            Section(header: Text("Enter PIN")) {
+                TextField("PIN", text: $pin)
+                    .keyboardType(.numberPad)
+            }
+
+            Button("Schedule Alarm") {
+                scheduleAlarm()
+            }
+            .disabled(pin.count != 4)
+
+            Section {
+                NavigationLink("Enter PIN to Disable Alarm", destination: PINVerificationView())
+                    .disabled(!appState.isAlarmActive)
+            }
         }
+        .navigationTitle("Alarm Settings")
     }
+}
 
     func scheduleAlarm() {
         let now = Date()
         let interval = alarmTime.timeIntervalSince(now)
 
-        if interval <= 0 {
+        guard interval > 0 else {
             print("⚠️ Cannot schedule alarm in the past")
             return
         }
 
-        print("⏰ Alarm scheduled for \(alarmTime) (in \(Int(interval)) seconds)")
+        AppState.shared.scheduledPIN = pin
+        AppState.shared.isAlarmActive = true
+
+        print("⏰ Alarm scheduled for \(alarmTime)")
 
         Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
             print("🚨 Alarm triggered — sending PIN: \(pin)")
