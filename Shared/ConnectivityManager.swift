@@ -1,10 +1,14 @@
 import Foundation
 import WatchConnectivity
+#if os(watchOS)
+import WatchKit
+#endif
 
 class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     static let shared = ConnectivityManager()
 
     @Published var receivedPIN: String = "----"
+    private var isActivated = false
 
     private override init() {
         super.init()
@@ -19,26 +23,45 @@ class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
 
-    // Send PIN to Watch
     func sendPINToWatch(pin: String) {
-        if WCSession.default.isReachable {
-            WCSession.default.sendMessage(["pin": pin], replyHandler: nil, errorHandler: nil)
+        guard isActivated else {
+            print("⚠️ WCSession not yet activated")
+            return
+        }
+
+        do {
+            try WCSession.default.updateApplicationContext(["pin": pin])
+            print("✅ Sent PIN via updateApplicationContext: \(pin)")
+        } catch {
+            print("❌ Failed to update application context: \(error.localizedDescription)")
         }
     }
 
-    // Receive PIN on Watch
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         DispatchQueue.main.async {
-            if let pin = message["pin"] as? String {
+            if let pin = applicationContext["pin"] as? String {
                 self.receivedPIN = pin
+
+                #if os(watchOS)
+                print("🔔 Playing haptic")
+                WKInterfaceDevice.current().play(.notification)
+                #endif
             }
         }
     }
 
-    // Required stubs
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
-#if os(iOS)
-    func sessionDidBecomeInactive(_ session: WCSession) {}
-    func sessionDidDeactivate(_ session: WCSession) {}
-#endif
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("✅ WCSession activated with state: \(activationState.rawValue)")
+        isActivated = true
+    }
+
+    #if os(iOS)
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("WCSession did become inactive")
+    }
+
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("WCSession did deactivate")
+    }
+    #endif
 }
