@@ -8,7 +8,6 @@ class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     static let shared = ConnectivityManager()
 
     @Published var receivedPIN: String = "----"
-    private var isActivated = false
 
     private override init() {
         super.init()
@@ -24,7 +23,7 @@ class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     func sendPINToWatch(pin: String) {
-        guard isActivated else {
+        guard WCSession.default.activationState == .activated else {
             print("⚠️ WCSession not yet activated")
             return
         }
@@ -52,7 +51,7 @@ class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("✅ WCSession activated with state: \(activationState.rawValue)")
-        isActivated = true
+        isActivated = (activationState == .activated)
     }
 
     #if os(iOS)
