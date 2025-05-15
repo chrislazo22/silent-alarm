@@ -51,10 +51,9 @@ class ConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("✅ WCSession activated with state: \(activationState.rawValue)")
-        isActivated = (activationState == .activated)
     }
 
-    #if os(iOS)
+    #if os(iOS) || os(watchOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("WCSession did become inactive")
     }
