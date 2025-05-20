@@ -7,14 +7,20 @@ class AlarmViewModel: ObservableObject {
     @Published var currentAlarm: Alarm?
     @Published var errorMessage: String?
     
-    private let userDefaults = UserDefaults.standard
+    private var userDefaults: UserDefaults
     private let alarmsKey = "savedAlarms"
     
-    init() {
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         loadAlarms()
     }
     
     // MARK: - Public Methods
+    
+    func setUserDefaults(_ userDefaults: UserDefaults) {
+        self.userDefaults = userDefaults
+        loadAlarms()
+    }
     
     func createAlarm(time: Date, isRepeating: Bool, repeatDays: Set<Alarm.Weekday>) {
         let alarm = Alarm(
