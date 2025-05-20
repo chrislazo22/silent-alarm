@@ -48,9 +48,9 @@
 			path = WatchAlarm;
 			sourceTree = "<group>";
 		};
-		5384DC292DCBEAD000AFC0AD /* WatchAlarm2 Watch App */ = {
+		5384DC292DCBEAD000AFC0AD /* WatchAlarm Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "WatchAlarm2 Watch App";
+			path = "WatchAlarm Watch App";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -78,7 +78,7 @@
 			children = (
 				5384DC532DCBF07200AFC0AD /* Shared */,
 				5384DBFC2DCBE9CA00AFC0AD /* WatchAlarm */,
-				5384DC292DCBEAD000AFC0AD /* WatchAlarm2 Watch App */,
+				5384DC292DCBEAD000AFC0AD /* WatchAlarm Watch App */,
 				5384DBFB2DCBE9CA00AFC0AD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5384DC292DCBEAD000AFC0AD /* WatchAlarm2 Watch App */,
+				5384DC292DCBEAD000AFC0AD /* WatchAlarm Watch App */,
 			);
 			name = "WatchAlarm2 Watch App";
 			packageProductDependencies = (
