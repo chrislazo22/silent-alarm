@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5384DC482DCBEAD100AFC0AD /* WatchAlarm2 Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5384DC282DCBEAD000AFC0AD /* WatchAlarm2 Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5384DC552DCBF0A000AFC0AD /* ConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5384DC542DCBF07700AFC0AD /* ConnectivityManager.swift */; };
-		5384DC562DCBF0A000AFC0AD /* ConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5384DC542DCBF07700AFC0AD /* ConnectivityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +37,6 @@
 /* Begin PBXFileReference section */
 		5384DBFA2DCBE9CA00AFC0AD /* WatchAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5384DC282DCBEAD000AFC0AD /* WatchAlarm2 Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchAlarm2 Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5384DC542DCBF07700AFC0AD /* ConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -76,7 +73,6 @@
 		5384DBF12DCBE9CA00AFC0AD = {
 			isa = PBXGroup;
 			children = (
-				5384DC532DCBF07200AFC0AD /* Shared */,
 				5384DBFC2DCBE9CA00AFC0AD /* WatchAlarm */,
 				5384DC292DCBEAD000AFC0AD /* WatchAlarm Watch App */,
 				5384DBFB2DCBE9CA00AFC0AD /* Products */,
@@ -90,14 +86,6 @@
 				5384DC282DCBEAD000AFC0AD /* WatchAlarm2 Watch App.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		5384DC532DCBF07200AFC0AD /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				5384DC542DCBF07700AFC0AD /* ConnectivityManager.swift */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,7 +197,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5384DC552DCBF0A000AFC0AD /* ConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +204,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5384DC562DCBF0A000AFC0AD /* ConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
