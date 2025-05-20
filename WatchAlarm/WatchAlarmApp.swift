@@ -10,9 +10,19 @@ struct WatchAlarmApp: App {
 }
 
 struct ContentView: View {
+    @State private var time = Date()
+    @State private var isRepeating = false
+    @State private var repeatDays: Set<Alarm.Weekday> = []
+    
     var body: some View {
-        Text("WatchAlarm")
-            .padding()
+        NavigationView {
+            AlarmSettingsView(
+                time: $time,
+                isRepeating: $isRepeating,
+                repeatDays: $repeatDays
+            )
+            .navigationTitle("Set Alarm")
+        }
     }
 }
 
